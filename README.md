@@ -67,15 +67,6 @@ By default, `hello_wasm_bg.wasm` is not include by `zapier build`. So in
 }
 ```
 
-I did a test to compute `fib(43)` on the Zapier editor. This is how they
-performed:
-
-| JavaScript              | WebAssembly                 |
-|-------------------------|-----------------------------|
-| ![JS: 19.3s][result_js] | ![WASM: 10.2s][result_wasm] |
-
-So 19.3s vs. 10.2s ≈ 89% faster.
-
 ## Example 1: computing a Fibonacci number
 
 WebAssembly is best for CPU-bound work. This Fibonacci function is a good
@@ -107,6 +98,15 @@ pub fn fib(n: u32) -> u32 {
 
 The `#[wasm_bindgen]` macro is where wasm-bindgen performs its magic, generating
 the JavaScript and Rust glue code, so they can talk to each other.
+
+I did a test to compute `fib(43)` on the Zapier editor. This is how they
+performed:
+
+| JavaScript              | WebAssembly                 |
+|-------------------------|-----------------------------|
+| ![JS: 19.3s][result_js] | ![WASM: 10.2s][result_wasm] |
+
+So 19.3s vs. 10.2s ≈ 89% faster.
 
 ## Example 2: making a request
 
