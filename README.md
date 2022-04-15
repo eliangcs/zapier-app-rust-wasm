@@ -54,7 +54,7 @@ directory, and produce two files:
   JavaScript modules won't use `hello_wasm_bg.wasm` directly. Instead, they have
   to import `hello_wasm.js` and should only use its exported interface.
 
-By default, `hello_wasm_bg.wasm` is not include by `zapier build`. So in
+By default, `hello_wasm_bg.wasm` is not included by `zapier build`. So in
 `.zapierapprc`, we have to include it explicitly:
 
 ```json
@@ -99,14 +99,13 @@ pub fn fib(n: u32) -> u32 {
 The `#[wasm_bindgen]` macro is where wasm-bindgen performs its magic, generating
 the JavaScript and Rust glue code, so they can talk to each other.
 
-I did a test to compute `fib(43)` on the Zapier editor. This is how they
-performed:
+I did a test to compute `fib(43)` on the Zap editor. This is how they performed:
 
 | JavaScript              | WebAssembly                 |
 |-------------------------|-----------------------------|
 | ![JS: 19.3s][result_js] | ![WASM: 10.2s][result_wasm] |
 
-So 19.3s vs. 10.2s ≈ 89% faster.
+So 19.3s vs. 10.2s ≈ WebAssembly is 89% faster.
 
 ## Example 2: making a request
 
