@@ -1,0 +1,7 @@
+{
+  "id": 159510,
+  "key": "App159510",
+  "includeInBuild": [
+    "hello_wasm_bg.wasm"
+  ]
+}
