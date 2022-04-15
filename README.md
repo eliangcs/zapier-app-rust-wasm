@@ -99,6 +99,36 @@ pub fn fib(n: u32) -> u32 {
 The `#[wasm_bindgen]` macro is where wasm-bindgen performs its magic, generating
 the JavaScript and Rust glue code, so they can talk to each other.
 
+In `creates/fib.js`, we define the `perform()` method like this:
+
+```javascript
+const wasm = require('../hello_wasm');
+
+// (omitted)
+
+const perform = async (z, bundle) => {
+  const n = bundle.inputData.n;
+  const runWith = bundle.inputData.run_with;
+  const fibFunc = runWith === 'js' ? fib : wasm.fib;
+
+  const start = performance.now();
+  const result = fibFunc(n);
+  const duration_ms = performance.now() - start;
+
+  return {
+    result,
+    duration_ms,
+  };
+};
+```
+
+So on the Zap editor, it'll show two input fields to the user:
+
+- `n`: is used to compute the n-th Fibonacci number, i.e., `fib(n)`
+- `run_with`: a dropdown where you can choose JavaScript or WebAssembly
+
+![How it looks like on editor][editor]
+
 I did a test to compute `fib(43)` on the Zap editor. This is how they performed:
 
 | JavaScript              | WebAssembly                 |
@@ -189,6 +219,7 @@ and WebAssembly (using [serde][serde]), but we also have to glue promises (using
 [js-sys][js-sys]) between the two worlds.
 
 
+[editor]: https://cdn.zappy.app/af6acab6910f964aa29e77d4cd5189e0.png
 [js-sys]: https://rustwasm.github.io/wasm-bindgen/contributing/js-sys/index.html
 [result_js]: https://cdn.zappy.app/ddd65804f70eaf6145848bbb816e09c4.png
 [result_wasm]: https://cdn.zappy.app/10dfdd3c0cf2105e1b0551fdd9290855.png
